@@ -27,11 +27,7 @@ function searchUsers(event) {
         const userEmail = item.querySelector('.card-text').textContent.toLowerCase();
         const userLocation = item.querySelector('.card-text.cap').textContent.toLowerCase();
 
-        if (
-            userName.includes(searchInput) ||
-            userEmail.includes(searchInput) ||
-            userLocation.includes(searchInput)
-        ) {
+        if (userName.includes(searchInput) || userEmail.includes(searchInput) || userLocation.includes(searchInput)) {
             item.style.display = 'flex';
         } else {
             item.style.display = 'none';
@@ -39,35 +35,41 @@ function searchUsers(event) {
     });
 }
 
-const request = new XMLHttpRequest();
-request.open('GET', 'https://randomuser.me/api/?results=12')
-request.onload = function () {
-//fetch('https://randomuser.me/api/?results=12')
-//.then(response => response.json())
-//.then(data => {
-    if (request.status >= 200 && request.status < 400) {
-        const data = JSON.parse(request.responseText);
-        const users = data.results;
+const gallery = document.getElementById('gallery');
 
-        users.forEach(user => {
-            const galleryItem = createGalleryItem(user);
-            appendGalleryItem(galleryItem);
-    });
-
-    const galleryItems = document.querySelectorAll('.card');
+function addModalListeners(galleryItems, users) {
+ //galleryItems = document.querySelectorAll('.card');
     galleryItems.forEach((item, index) => {
         item.addEventListener('click', () => {
             displayModal(users[index]);
         });
     });
-} else {
-    console.log('Error:', request.status);
 }
-};
-request.onerror= function () {
-    console.long('Reguest faild');
-};
-request.send();
+
+fetch('https://randomuser.me/api/?results=12')
+.then(response => response.json())
+.then(data => {
+    const users = data.results;
+   
+    users.forEach((user) => {
+            const galleryItem = createGalleryItem(user);
+            appendGalleryItem(galleryItem);
+    });
+
+     const galleryItems = document.querySelectorAll('.card');
+     addModalListeners(galleryItems, users);
+
+     //galleryItems.forEach((item) => {
+       //item.addEventListener('click', (event) => {
+          // const clickedCard = event.currentTarget;
+            //const index = Array.from(galleryItems).indexOf(item);
+            //displayModal(users[index]);
+        //});
+    // });
+})
+.catch((error) => {
+    console.log('Error', error);
+});
 
 function createGalleryItem(user) {
     const {name, email, location, picture } = user;
@@ -75,6 +77,7 @@ function createGalleryItem(user) {
     const galleryItem = document.createElement('div');
     galleryItem.className = 'card';
     galleryItem.innerHTML = `
+    <div class="card">
     <div class="card-img-container">
         <img class="card-img" src="${picture.large}" alt="profile picture">
         </div>
@@ -83,26 +86,38 @@ function createGalleryItem(user) {
             <p class="card-text">${email}</p>
             <p class="card-text cap">${location.city}, ${location.state}</p>
         </div>
+    </div>
     `;
     return galleryItem;
 }
 
 function appendGalleryItem(galleryItem) {
-    const gallery = document.getElementById('gallery');
     gallery.appendChild(galleryItem);
+}
+
+function addModalListeners(galleryIem) {
+    gallery.appendChild(galleryItem);
+
+
+galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        displayModal(users[index]);
+    });
+});
 }
 
 function displayModal(user) {
     const { name, email, location, cell, picture, dob} = user;
-
     const formattedCell = formatPhoneNumber(cell);
-
     const formattedBirthday = formatDate(dob.date);
+    
 
-    const modalHTML = `
-        <div class="modal-container:>
+const modalContainer = document.createElement('div');
+modalContainer.className= 'modal-container';
+
+modalContainer.innerHTML = ` 
             <div class="modal">
-                <button type="button" id="modal-close-btn" class+'modal-close-btn"><strong>X<?strong><?button>
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                 <div class="modal-info-container">
                     <img class="modal-img" src="${picture.large}" alt="profile picture">
                     <h3 id="name" class="modal-name cap">${name.first} ${name.last}</h3>
@@ -114,17 +129,23 @@ function displayModal(user) {
                     <p class"modal-text">Birthday: ${formattedBirthday}</p>
                 </div>
             </div>
-        </div>
-    `;
+            `;
 
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    document.body.appendChild(modalContainer);
+    const modal = modalContainer.querySelector('.modal');
+    modal.addEventListener('click', (event) => {
+           event.stopPropagation();
+    });
 
-    const closeButton = document.getElementById('modal-close-btn');
-    closeButton.addEventListener('click', () => {
+    modalContainer.addEventListener('click', () => {
         closeModal();
     });
-}
 
+    const closeButton = document.getElementById('modal-close-btn');
+    closeButton.addEventListener('click', closeModal);
+   
+
+}
 function closeModal() {
     const modalContainer = document.querySelector('.modal-container');
     modalContainer.remove();
@@ -136,8 +157,10 @@ function formatPhoneNumber(phoneNumber) {
 
 function formatDate(dateString) {
     const date = new Date(dateString);
-    const month = (date.getMonth() +1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit'};
+    return date.toLocaleDateString('en-US', options);
 }
+
+
+
+/**clicking out of the profile card. addacting the card to the page/ had a few missed >  and "" */
