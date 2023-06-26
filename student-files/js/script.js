@@ -117,3 +117,5 @@ galleryContainer.addEventListener('click', (event) => {
 });
 
 document.body.style.backgroundColor = '#A8A8A8';
+
+/** */
