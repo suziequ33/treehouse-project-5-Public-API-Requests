@@ -118,4 +118,13 @@ galleryContainer.addEventListener('click', (event) => {
 
 document.body.style.backgroundColor = '#A8A8A8';
 
-/** */
+/** i used a lot of the structure of this project from the (treehouse)workplace-Working with fetch API.
+ * and the treehouse-workplace-AJAX Basics. 
+ * for the formating of the cell number and birthday i foound examples at gabrieleromanato.name,javascript-coder.com
+ * for format number at stackoverflow.com,and  learnsbucket.com 
+ * the modal was where i had trouble. i couldn't get the card to show or when i did it was darker then the example.
+ * then the elements wouldnt show. ( I deleted and rewrote program twice because of this.) 
+ * i then looked at the link modals with javascript. that helped to figure out where i was going wrong.
+ * also sites:: w3school.com/freecodecamp.org/even how to create popup modal box with HTML CSS and JavaScript Youtoube/CodingLab.
+ * i only changed the background of the boday. 
+*/
