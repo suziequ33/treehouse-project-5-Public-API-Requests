@@ -125,6 +125,7 @@ document.body.style.backgroundColor = '#A8A8A8';
 /** i used a lot of the structure of this project from the (treehouse)workplace-Working with fetch API.
  * and the treehouse-workplace-AJAX Basics. 
  * fetch/ deceloper.mozilla.ord /javacripttutorial.net examples
+ * i got stuck when i had to implement code. I was constantly missing quotation and > symbols..
  * for the formating of the cell number and birthday i foound examples at gabrieleromanato.name,javascript-coder.com
  * for format number at stackoverflow.com,and  learnsbucket.com 
  * the modal was where i had trouble. i couldn't get the card to show or when i did it was darker then the example.
