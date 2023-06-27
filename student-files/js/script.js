@@ -51,6 +51,7 @@ const cardMarkup =  `
 `;
 galleryContainer.insertAdjacentHTML('beforeend', cardMarkup);
 }
+
 function createModal(data) {
     const {picture, name, email, location, cell, dob} = data;
 
@@ -88,9 +89,11 @@ modalContainer.addEventListener('click', (event) => {
 });
 modalContainer.classList.add('show-modal');
 }
+
 function closeModal() {
     modalContainer.remove();
 }
+
 function formatCellNumber(cell) {
     const cleaned = ('' + cell).replace(/\D/g, '');
     const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
@@ -99,6 +102,7 @@ function formatCellNumber(cell) {
     }
     return cell;
 }
+
 function formatBirthday(birthday) {
     const date = new Date(birthday);
     const month = date.getMonth() + 1;
@@ -120,6 +124,7 @@ document.body.style.backgroundColor = '#A8A8A8';
 
 /** i used a lot of the structure of this project from the (treehouse)workplace-Working with fetch API.
  * and the treehouse-workplace-AJAX Basics. 
+ * fetch/ deceloper.mozilla.ord /javacripttutorial.net examples
  * for the formating of the cell number and birthday i foound examples at gabrieleromanato.name,javascript-coder.com
  * for format number at stackoverflow.com,and  learnsbucket.com 
  * the modal was where i had trouble. i couldn't get the card to show or when i did it was darker then the example.
